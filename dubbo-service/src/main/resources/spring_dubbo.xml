@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	   http://code.alibabatech.com/schema/dubbo
+	   http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+    <dubbo:application name="BlockchainService" owner="chris" logger="slf4j"/>
+
+    <dubbo:registry address="${dubbo.zk.list}" timeout="30000" session="60000" protocol="zookeeper"/>
+
+    <dubbo:protocol port="${dubbo.port}" name="dubbo" threadpool="fixed" threads="50"/>
+
+    <dubbo:service interface="com.demo.springdubbo.BlockchainService" timeout="3000" ref="blockchainService" protocol="dubbo"/>
+
+    <bean id="blockchainService" class="com.demo.springdubbo.BlockchainServiceImpl"/>
+
+</beans>
